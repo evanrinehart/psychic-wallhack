@@ -11,7 +11,8 @@ data Regex =
   Optional Regex |
   LineStart Regex |
   LineEnd Regex |
-  Sequence [Regex]
+  Sequence [Regex] |
+  EmptyRegex
     deriving (Show, Eq)
   
 data CharClass =
@@ -28,8 +29,13 @@ parse :: String -> Either String Regex
 parse = Left "dunno"
 
 
-parse :: Parser Regex
-parse = (eof >> return (Literally "")) <|> (many1 node)
+parser :: Parser Regex
+parser = emptyRegex <|> many1 node
+
+emptyRegex :: Parser Regex
+emptyRegex = do
+  eof
+  return EmptyRegex
 
 node :: Parser Regex
 node = 
