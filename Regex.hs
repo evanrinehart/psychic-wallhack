@@ -46,6 +46,7 @@ R?
 R$
 ^R$
 [CCCC-CC-C]
+[^CCCC-CC-C]
 abc
 RRRR
 .
